@@ -99,6 +99,23 @@ execute 'change_ownergrp' do
   action :run
 end
 
+execute 'remove_tomcat' do
+  command 'rm -f /etc/init.d/tomcat'
+  #creates '/tmp/something'
+  action :run
+end
+
+execute 'remove_symlink_rc1.d' do
+  command 'rm -f /etc/rc1.d/K99tomcat'
+  action :run
+end
+
+execute 'remove_symlink_rc2.d' do
+  command 'rm -f /etc/rc2.d/S99tomcat'
+  action :run
+end
+
+
 template "#{node["service_path"]}/tomcat" do
   source 'tomcat.service.erb'
   owner 'tomcat'
@@ -106,13 +123,19 @@ template "#{node["service_path"]}/tomcat" do
   mode '0755'
 end
 
-execute 'tomcat_symlink_rc1.d' do
+execute 'tomcat_start' do
+  command 'sh /opt/tomcat/bin/startup.sh'
+   #creates '/tmp/something'
+  action :run
+end
+
+execute 'create_symlink_rc1.d' do
   command 'sudo ln -s /etc/init.d/tomcat /etc/rc1.d/K99tomcat'
   action :run
 end
 
-execute 'tomcat_symlink_rc2.d' do
-  creates 'sudo ln -s /etc/init.d/tomcat /etc/rc2.d/S99tomcat'
+execute 'create_symlink_rc2.d' do
+  command 'sudo ln -s /etc/init.d/tomcat /etc/rc2.d/S99tomcat'
   action :run
 end
 
@@ -124,11 +147,6 @@ end
 
 service node["service_name"] do
   supports :status => true, :restart => true
-  action [:start, :enable]
-end
-
-service node["service_name"] do
-  supports :status => true, :restart => true, :reload => true
   action [:start, :enable]
 end
 
