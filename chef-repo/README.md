@@ -1,102 +1,34 @@
 # COOKBOOK FOR CREATING TOMCAT SERVER ON LINUX MACHINES
 
-### AUTHOR:     AVINITA MOHANTY
-### DATE:       5 MARCH 2017
+## AUTHOR:     AVINITA MOHANTY
+## DATE:       5 MARCH 2017
 
-Task : Installing Tomcat
-End Result : Render a welcome page when launched form browser.
-
+## PURPOSE
 This cookbook will do the following:
--Update Package Installer
--Install Java 1.8
-    java version "1.8.0_121"
-    Java(TM) SE Runtime Environment (build 1.8.0_121-b13)
-    Java HotSpot(TM) 64-Bit Server VM (build 25.121-b13, mixed mode)
--Install Tomcat
+-   Update Package Installer
+-   Install Java 1.8
+    *   java version "1.8.0_121"
+    *   Java(TM) SE Runtime Environment (build 1.8.0_121-b13)
+-   Install Tomcat
 
+### PLATFORMS SUPPORTED
 
-Note : Please ignore the Apache cookbook. Did that for testing purpose
+*   Debian / Ubuntu derivatives
+*   RHEL and derivatives
+*   Fedora
+*   openSUSE / SUSE Linux Enterprises
 
+### TASK 1:     INSTALLING AND CONFIGURING JAVA
 
-Provides resources for installing Tomcat and managing the Tomcat service for use in wrapper cookbooks. Installs Tomcat from tarballs on the Apache.org website and installs the appropriate configuration for your platform's init system.
+*   Retrieve jdk and jre from Oracle site.
+*   Install java and set alternatives to respective versions for java and javac.
+*   Export JAVA_HOME to /etc/environment
 
-Requirements
+### TASK 2:     INSTALLING AND CONFIGURING TOMCAT
 
-Platforms
+*   Create a user tomcat and group tomcat
+*   Download Tomcat from http://www-eu.apache.org/dist/tomcat/tomcat-8/v8.5.11/bin/apache-tomcat-8.5.11.tar.gz
+*   Extract the package to /opt/tomcat folder
+*   Create a process file inside /etc/init.d to facilitate system level commands to start/stop tomcat.
 
-Debian / Ubuntu derivatives
-RHEL and derivatives
-Fedora
-openSUSE / SUSE Linux Enterprises
-Chef
-
-Chef 12.1+
-Cookbooks
-
-compat_resource
-Usage
-
-Due to the complexity of Tomcat cookbooks it's not possible to create an attribute driven cookbook that solves everyone's problems. Instead this cookbook provides resources for installing Tomcat and managing the Tomcat service, which are best used in your own wrapper cookbook. The best way to understand how this could be used is to look at the helloworld test recipe located at test/cookbooks/test/recipes/helloworld_example.rb
-
-Resources (providers)
-
-tomcat_install
-
-tomcat_install installs an instance of the tomcat binary direct from Apache's mirror site. As distro packages are not used we can easily deploy per-instance installations and any version available on the Apache archive site can be installed.
-
-properties
-
-version: The version to install. Default: 8.0.36
-install_path: Full path to the install directory. Default: /opt/tomcat_INSTANCENAME_VERSION
-tarball_base_path: The base path to the apache mirror containing the tarballs. Default: 'http://archive.apache.org/dist/tomcat/'
-checksum_base_path: The base path to the apache mirror containing the md5 file. Default: 'http://archive.apache.org/dist/tomcat/'
-tarball_uri: The complete path to the tarball. If specified would override (tarball_base_path and checksum_base_path). checksum will be loaded from "#{tarball_uri}.md5". This attribute is useful, if you are hosting tomcat tarballs from artifact repositories such as nexus.
-exclude_docs: Exclude ./webapps/docs from installation. Default true.
-exclude_examples: Exclude ./webapps/examples from installation. Default true.
-exclude_manager: Exclude ./webapps/manager from installation. Default: false.
-exclude_hostmanager: Exclude ./webapps/host-manager from installation. Default: false.
-example
-
-Install an Tomcat 8.0.36 instance named 'helloworld' to /opt/tomcat_helloworld_8_0_36/ with a symlink at /opt/tomcat_helloworld/
-
-tomcat_install 'helloworld' do
-  version '8.0.36'
-end
-tomcat_service
-
-tomcat_service sets up the installed tomcat instance to run using the appropriate init system (sys-v, upstart, or systemd)
-
-properties
-
-install_path: Full path to the install directory. Default: /opt/tomcat_INSTANCENAME
-env_vars: An array of hashes containing the environmental variables for Tomcat's setenv.sh script. Note: If CATALINA_BASE is not passed it will automatically be added as the first item in the array. Default: [ {'CATALINA_BASE' => '/opt/INSTANCE_NAME/'}, {'CATALINA_PID' => '$CATALINA_BASE/bin/tomcat.pid'} ]
-sensitive: Excludes diffs that may expose ENV values from the chef-client logs. Default: false
-actions
-
-start
-stop
-enable
-disable
-restart
-example
-
-tomcat_service 'helloworld' do
-  action :start
-  env_vars [{ 'CATALINA_PID' => '/my/special/path/tomcat.pid' }]
-end
-License & Authors
-
-Author: Tim Smith (tsmith@chef.io)
-Copyright:: 2010-2016, Chef Software, Inc
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
+### End Result : Render a welcome page from Tomcat when launched form browser.
