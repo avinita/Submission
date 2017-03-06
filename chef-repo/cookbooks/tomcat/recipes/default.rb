@@ -2,13 +2,14 @@
 # Cookbook Name:: tomcat
 # Recipe:: default
 #
-# Copyright 2017, YOUR_COMPANY_NAME
+# Avinita Mohanty, Carnegie Mellon University
+# March 5, 2017
 #
 # All rights reserved - Do Not Redistribute
 
-execute "apt-get update" do
-  command "apt-get update"
-end
+#execute "apt-get update" do
+#  command "apt-get update"
+#end
 
 group 'tomcat'
 
