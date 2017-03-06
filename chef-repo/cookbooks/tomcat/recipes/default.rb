@@ -106,21 +106,26 @@ template "#{node["service_path"]}/tomcat" do
   mode '0755'
 end
 
-# execute 'tomcat_symlink_rc1.d' do
-#   command 'sudo ln -s /etc/init.d/tomcat /etc/rc1.d/K99tomcat'
-#   action :run
-# end
+execute 'tomcat_symlink_rc1.d' do
+  command 'sudo ln -s /etc/init.d/tomcat /etc/rc1.d/K99tomcat'
+  action :run
+end
 
-# execute 'tomcat_symlink_rc2.d' do
-#   creates 'sudo ln -s /etc/init.d/tomcat /etc/rc2.d/S99tomcat'
-#   action :run
-# end
+execute 'tomcat_symlink_rc2.d' do
+  creates 'sudo ln -s /etc/init.d/tomcat /etc/rc2.d/S99tomcat'
+  action :run
+end
 
-# execute 'tomcat_start' do
-#   command 'sh /opt/tomcat/bin/startup.sh'
-#   #creates '/tmp/something'
-#   action :run
-# end
+execute 'tomcat_start' do
+  command 'sh /opt/tomcat/bin/startup.sh'
+   #creates '/tmp/something'
+  action :run
+end
+
+service node["service_name"] do
+  supports :status => true, :restart => true
+  action [:start, :enable]
+end
 
 service node["service_name"] do
   supports :status => true, :restart => true, :reload => true
