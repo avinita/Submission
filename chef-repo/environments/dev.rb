@@ -3,5 +3,5 @@
 # 5 MARCH 2017
 
 name "dev"
-description "Testing Environment"
+description "Development Environment"
 cookbook "tomcat", "= 0.1.1"
