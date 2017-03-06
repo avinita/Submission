@@ -19,6 +19,10 @@ This cookbook will do the following:
 *   Fedora
 *   openSUSE / SUSE Linux Enterprises
 
+### CHEF RUNLIST
+*  Recipe: tomcat
+*  Role: appserver
+
 ### TASK 1:     INSTALLING AND CONFIGURING JAVA
 
 *   Retrieve jdk and jre from Oracle site.
