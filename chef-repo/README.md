@@ -3,7 +3,8 @@
 ## AUTHOR:     AVINITA MOHANTY
 ## DATE:       5 MARCH 2017
 
-## PURPOSE
+
+### PURPOSE
 This cookbook will do the following:
 -   Update Package Installer
 -   Install Java 1.8
@@ -31,4 +32,4 @@ This cookbook will do the following:
 *   Extract the package to /opt/tomcat folder
 *   Create a process file inside /etc/init.d to facilitate system level commands to start/stop tomcat.
 
-### End Result : Render a welcome page from Tomcat when launched form browser.
+### END RESULT : RENDER A WELCOME PAGE FROM TOMCAT WHEN LAUNCHED FORM BROWSER.
