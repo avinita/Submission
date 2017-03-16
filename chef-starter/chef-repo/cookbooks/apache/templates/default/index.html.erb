@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>All the best</title>
+</head>
+<body>
+<h1> FQDN : <%= node["fqdn"] %>!</h1>
+<p> !!!!!!This server has <%= node["memory"]["total"].to_i / 1024 %> MB</p>
+<h1>Written by : <%= node["owner"] %> </h1>
+</body>
+</html>

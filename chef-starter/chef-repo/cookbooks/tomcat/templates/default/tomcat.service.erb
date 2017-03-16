@@ -1,0 +1,15 @@
+export TOM_HOME=/opt/tomcat
+
+case $1 in
+start)
+        sh $TOM_HOME/bin/startup.sh
+        ;;
+stop)
+        sh $TOM_HOME/bin/shutdown.sh
+        ;;
+restart)
+        sh $TOM_HOME/bin/shutdown.sh
+        sh $TOM_HOME/bin/startup.sh
+        ;;
+esac
+exit 0

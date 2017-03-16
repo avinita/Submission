@@ -1,0 +1,10 @@
+{
+	"name": "data_bag_item_user_password_fwebber",
+	"json_class":"Chef::DataBagItem",
+	"chef_type": "data_bag_item",
+	"data_bag": "user_password",
+	"raw_data": {
+	"id": "avi",
+	"password": "india"
+	}
+}
